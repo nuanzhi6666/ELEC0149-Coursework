@@ -1,143 +1,183 @@
-# ELEC0136: Machine Learning System Design
+# Financial Decision Support with LSTM and LLM Reporting
 
-## Summative assessment
+This project builds a regression-based financial decision support pipeline for the S&P 500 using macro-financial time-series data from FRED.  
+The system predicts future cumulative returns with an LSTM model, maps predicted returns into **Buy / Hold / Sell** actions through a fixed threshold rule, and optionally uses **Gemini** to generate quarterly natural-language reports for human-readable interpretation.
 
-### Brief
+## Project Overview
 
-You are the junior data scientist on “Money Money Money!”. Your product manager, David, asks you to design, justify, and reproduce an AI-based decision system that informs a policy (Buy / Hold / Sell) to automatically perform trading actions (Buy / Hold / Sell) on the S&P 500, a stock market index that tracks the stock performance of 500 of the largest companies listed in the US stock exchanges. The aim of the decision system is to increase the company’s revenue.
+The pipeline is designed for **decision support**, not fully automated trading.
 
-David would like you to report back with a documented data pipeline: data discovery, acquisition, validated, storage, processing, feature analysis, training and evaluation protocols, and an auditable trail of choices and trade-offs that allows them to interpret the system’s decisions.
+It contains three main stages:
 
-### Constraints
+1. **Data acquisition and preprocessing**
+   - Retrieve financial and macroeconomic time series from FRED
+   - Merge all series by date
+   - Forward-fill missing values
+   - Add log-return features for major equity indices
 
-- No paid services. Use only free/public data & infrastructure.
-- Do not use external database services. Please spawn your own database on a local machine. If, for any reason, you want to use an external service (e.g., Mongo Atlas), make sure the database is running and accessible for 2 months after submission.
-- No feedback is allowed before submission.
-- **AI Usage Disclosure.** We adopt the UCL Category 2 level of use of GenAI: <https://www.ucl.ac.uk/teaching-learning/generative-ai-hub/three-categories-genai-use-assessment>. Reports and codes that do not employ GenAI will be rewarded. Reports and codes that use GenAI, but that do not declare its use will be penalised.
+2. **Prediction and decision mapping**
+   - Build a regression target based on future cumulative S&P 500 return
+   - Apply PCA for feature representation
+   - Train an LSTM model on sequential inputs
+   - Convert predicted returns into **Buy / Hold / Sell** actions using a fixed threshold
 
----
+3. **LLM-based reporting**
+   - Collect structured test-period prediction records
+   - Summarise quarterly statistics and representative cases
+   - Use Gemini to generate readable quarterly reports for interpretation
 
-## Deliverables
+## Main Settings
 
-### Report
+The current default configuration in `main.py` includes:
 
-- Must be max 8 pages, excluded references and an optional appendix.
-- Must TMRL template attached. Overleaf is strongly advised.
-- Must be submitted in PDF format. Reports that do not respect template, or submitted in different formats will be desk-rejected and have a score of 0 (zero).
-- Please include your student number and the repo URL in the report. Do not include your name.
+- **Task type:** regression
+- **Decision threshold:** `0.025`
+- **Date range:** `2015-01-01` to `2025-12-31`
+- **Lookback window for state construction:** `30`
+- **Prediction horizon:** `20`
+- **Sequence length for LSTM:** `20`
+- **Batch size:** `64`
+- **Epochs:** `300`
+- **Learning rate:** `1e-3`
+- **Loss function:** `SmoothL1Loss`
+- **LLM model:** `gemini-2.5-flash`
 
-### Code
+## Project Structure
 
-- Produces the evidence that you presented in your report.
-- Plain Python: no notebooks, no Makefiles.
-- Single entry point: a `main.py` file, in the root of the repository, **must** run all the data pipeline: collecting the data, validating it, storing it, analysing it, saving plots on disk, running the training, and evaluating the model.
-- Deterministic: fixed seeds; no interactive input; plots saved to disk.
-- Environment: `environment.yml` in the root of the repo are mandatory and must contain all the packages required to run your code.
-- **Autograding:** we run an automated routine to score your code. The routine will install your `environment.yml` file, and run the `main.py` file in the root of your repository.
-- No manual intervention: we will not perform any manual check to score your code. Any instruction in the readme file or sent by email will be ignored.
+A typical project structure is as follows:
 
----
+```text
+.
+├── main.py
+├── README.md
+├── requirements.txt
+├── utils/
+│   ├── my_data_acqusition.py
+│   ├── my_data_processing.py
+│   ├── my_data_representing.py
+│   ├── my_model_train.py
+│   ├── my_base_func.py
+│   └── my_llm_explainer.py
+├── data_fetched/
+│   ├── data_raw.db
+│   ├── data_processed.db
+│   └── data_represented.db
+├── models/
+│   └── model_best_regression_llm.pth
+└── figures/
+    ├── img.png
+    ├── Training curves1.png
+    ├── Training curves2.png
+    ├── Training curves3.png
+    ├── gemini_regression_quarterly_reports.json
+    ├── regression_quarter_summary_table.csv
+    └── regression_representative_case_table.csv
+```
 
-## How to submit
+## Requirements
 
-### Report
+Install the required packages first:
 
-Please use the “Submission point” on Moodle.
+```bash
+pip install -r requirements.txt
+```
 
-### Code
+A minimal `requirements.txt` may include:
 
-Please merge the “Feedback” pull request, as discussed in class.
+```txt
+numpy
+pandas
+matplotlib
+scikit-learn
+torch
+google-genai
+```
 
----
+If your local utility modules use additional packages for FRED access, add them as needed.
 
-## Marking scheme
+## Environment Variables
 
-### REPORT — 70%
+This project may require API keys depending on whether data or LLM reports need to be generated.
 
-| Task                                                      | Score |
-| --------------------------------------------------------- | ----- |
-| T1 – Introduction and Conclusions                         | 7%    |
-| T2 – System overview, architecture, and data flow         | 7%    |
-| T3 – Data discovery and acquisition                       | 8%    |
-| T4 – Object model, data validation and storage            | 8%    |
-| T5 – Dataset construction and sampling                    | 8%    |
-| T6 – Problem formalisation                                | 8%    |
-| T7 – Representation learning, feature design and feature impact analysis | 8% |
-| T8 – Training and evaluation protocol                     | 8%    |
-| Writing quality (grammar, clarity, concision)             | 4%    |
-| Figures (readability, appropriateness)                    | 4%    |
+### FRED API
+If raw FRED data needs to be fetched, set:
 
-### CODE — 30%
+```bash
+FRED_API_KEY=your_fred_api_key
+```
 
-| Task                         | Score |
-| ---------------------------- | ----- |
-| Reproducibility              | 10%   |
-| Code quality and documentation | 10% |
-| Code organisation            | 5%    |
-| Git and GitHub usage         | 5%    |
+### Gemini API
+If quarterly LLM reports are enabled, set either:
 
-Performance is secondary. Clear reasoning, leak-free design, reproducibility, and defensible trade-offs score highest.
+```bash
+GEMINI_API_KEY=your_gemini_api_key
+```
 
----
+or
 
-## Task details
+```bash
+GOOGLE_API_KEY=your_google_api_key
+```
 
-### T1. Problem OVERVIEW
+If no Gemini key is provided, the model training and evaluation pipeline can still run, but the LLM reporting step will be skipped.
 
-Describe your problem informally: Why is this a problem? Why your approach? What’s your objective? What would your solution unlock?
+## How to Run
 
-### T2. System overview & data flow
+Run the full pipeline with:
 
-Describe the system components and how data flows end-to-end: acquisition, storage, validation, feature build, feature analysis, model training, evaluation, model selection. Do you plan to automatically ingest new data at regular intervals to continuously train the model? Identify the interfaces between systems, inputs/outputs, and failure points. Provide a schematic showing components, artifacts, and control flow (e.g., a simple block diagram), describing what components you used and how they relate to each other.
+```bash
+python main.py
+```
 
-### T3. Data discovery & ACQUISITION
+The script will:
 
-Acquire S&P500 prices, and additional external data that can be useful to solve your problem, each with provenance and a hypothesis for inclusion.
+1. Load or fetch raw data
+2. Build processed and represented datasets
+3. Train or load the regression model
+4. Evaluate validation and test performance
+5. Generate training curves and a confusion matrix
+6. Optionally generate Gemini quarterly reports
 
-You can (not must) use data between 1st January 2020 and 31st December 2025 max. Define the time span of the acquisition. Did you acquire 1 year of data? 2 years? Why? Describe the method used to acquire the dataset, and provide details of the interface. Did you use an API? Which one? How did you interact with it?
+## Outputs
 
-Optimise data acquisition, for example, if data is already stored in the database, do not use the API to re-download it, but retrieve it from the database.
+After running the pipeline, the following outputs are typically produced:
 
-Provide a description of each set of data that you acquired.
+- **Model**
+  - `models/model_best_regression_llm.pth`
 
-### T4. Object model, DATA VALIDATION and STORAGE
+- **Figures**
+  - `figures/img.png`  
+    PCA feature scatter plots against the target
+  - `figures/Training curves1.png`  
+    Training loss curve
+  - `figures/Training curves2.png`  
+    Validation loss curve
+  - `figures/Training curves3.png`  
+    Validation decision accuracy curve
 
-Define an object model and choose a storage format. Why this object model? Why not another? Why this format? Why not another? Justify your choice.
+- **LLM Reporting Outputs**
+  - `figures/gemini_regression_quarterly_reports.json`
+  - `figures/regression_quarter_summary_table.csv`
+  - `figures/regression_representative_case_table.csv`
 
-Validate your data. Do all elements comply with your object model? Are there missing values? Duplicates? Outliers? Did you filter/alter your data? If so, why? Explore your data and justify any action on it.
+## Notes
 
-Define a storage strategy. What is the most suitable storage strategy? Why? What database did you use? Why?
+- The model is trained as a **regression model**, not a direct classifier.
+- Buy / Hold / Sell labels are obtained by threshold-mapping the predicted return.
+- The LLM does **not** replace the model or change the final prediction in the current implementation.
+- The role of the LLM is to improve **readability, interpretability, and human-centred analysis** by turning structured prediction results into quarterly natural-language reports.
 
-> **Infrastructure note:** You can spawn your own server locally, and use it for marking. If you do use a remote server, you must ensure it is running for at least 8 weeks after submission, or it will affect your marking.
+## Reproducibility
 
-### T5. Dataset assembly AND SAMPLING
+The script sets a fixed random seed for reproducibility.  
+To rerun the pipeline from scratch, you may need to adjust the rebuild switches in `main.py`:
 
-Design your dataset. What does a data point look like? Why? How many do you have?
+- `REBUILD_RAW`
+- `REBUILD_PROCESSED`
+- `REBUILD_REPRESENTED`
+- `RETRAIN`
 
-Describe the sampling strategy that you will use to train the model and justify it.
+## Disclaimer
 
-### T6. PROBLEM FORMALISATION
-
-Formalise your ML problem and present it mathematically. What is your learning objective? How will you solve it? Why?
-
-### T7. Representation learning & feature impact
-
-Analyse how the representation drives predictions. Options include:
-
-- **Learned representation:** Is there any pattern in the representation learned by the model?
-- **Feature analysis:** How are features related to each other? Are there correlated, anticorrelated or orthogonal features? Knowing this, how can you improve the model?
-- **Feature impact:** What’s the importance of each feature in the prediction? Run ablation studies.
-
-This is a good place to provide evidence of your claims using figures.
-
-### T8. TRAINING AND EVALUATION
-
-Train a Deep Neural Network with the following architecture:
-
-- `Linear(128) → LSTM(128) → LSTM(128) → Linear(128)`
-
-where the number in parentheses indicates the number of hidden units. To this model, append an additional layer to represent the policy that you want to describe.
-
-Use a loss function appropriate to your problem, and ensure your results are statistically significant (seeds). Training must be cut off after 15 minutes.
-
-Implement at least one baseline, used as a control measure to understand how well the model is doing, for example, naïve last value, or a linear model.
+This project is developed for academic and research purposes only.  
+It is not financial advice and should not be used as the sole basis for real investment decisions.
