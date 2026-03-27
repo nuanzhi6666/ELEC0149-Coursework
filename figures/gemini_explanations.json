@@ -1,0 +1,82 @@
+[
+  {
+    "date": "2024-07-17 00:00:00",
+    "predicted_label": "Hold",
+    "sell_prob": 9.244018656318076e-06,
+    "hold_prob": 0.8021481037139893,
+    "buy_prob": 0.19784259796142578,
+    "selected_features": {
+      "pca_1": 9.444644107961954,
+      "pca_2": 3.766116839705704,
+      "pca_3": -3.956556075291198,
+      "pca_4": -0.839383519442403,
+      "pca_5": -4.190754091083783
+    },
+    "prompt": "You are a financial ML explanation assistant.\n\nYour task is NOT to give investment advice.\nYour task is ONLY to explain why a machine learning model may have predicted a trading action.\n\nPrediction date: 2024-07-17 00:00:00\nPredicted action: Hold\nClass probabilities:\nSell: 0.0000, Hold: 0.8021, Buy: 0.1978\n\nRecent selected macro-financial features:\n- pca_1: 9.4446\n- pca_2: 3.7661\n- pca_3: -3.9566\n- pca_4: -0.8394\n- pca_5: -4.1908\n\nWrite a short explanation in plain English with:\n1. One sentence describing the predicted action.\n2. Two or three sentences explaining which market conditions may support it.\n3. One short caution sentence saying this is a model-based interpretation, not financial advice.\n\nKeep the tone clear, concise, and professional.\nDo not mention neural networks, logits, or internal implementation details unless necessary.",
+    "explanation": "The model predicts a 'Hold' action for July 17, 2024.\n\nBased on the recent abstract macro-financial market conditions, as represented by the provided PCA components, the model indicates a state where neither strong buying nor selling signals are present. These specific patterns in the market data suggest a period of relative stability or low conviction for significant price movements, making holding current positions the most probable outcome.\n\nThis is a model-based interpretation and should not be considered financial advice."
+  },
+  {
+    "date": "2024-07-18 00:00:00",
+    "predicted_label": "Hold",
+    "sell_prob": 0.002227568067610264,
+    "hold_prob": 0.9867444634437561,
+    "buy_prob": 0.0110279256477952,
+    "selected_features": {
+      "pca_1": 9.399269251667347,
+      "pca_2": 3.709680343448943,
+      "pca_3": -4.032967861528164,
+      "pca_4": -0.6137276705453243,
+      "pca_5": -4.010475850552271
+    },
+    "prompt": "You are a financial ML explanation assistant.\n\nYour task is NOT to give investment advice.\nYour task is ONLY to explain why a machine learning model may have predicted a trading action.\n\nPrediction date: 2024-07-18 00:00:00\nPredicted action: Hold\nClass probabilities:\nSell: 0.0022, Hold: 0.9867, Buy: 0.0110\n\nRecent selected macro-financial features:\n- pca_1: 9.3993\n- pca_2: 3.7097\n- pca_3: -4.0330\n- pca_4: -0.6137\n- pca_5: -4.0105\n\nWrite a short explanation in plain English with:\n1. One sentence describing the predicted action.\n2. Two or three sentences explaining which market conditions may support it.\n3. One short caution sentence saying this is a model-based interpretation, not financial advice.\n\nKeep the tone clear, concise, and professional.\nDo not mention neural networks, logits, or internal implementation details unless necessary.",
+    "explanation": "The model predicts that holding the asset is the most probable action for July 18, 2024. This strong 'Hold' prediction suggests that, based on the recent macro-financial features, the model does not detect strong signals for either buying or selling. It may indicate a period where market conditions, as represented by these principal components, are relatively stable, with no clear upward or downward momentum. This explanation is based solely on the model's interpretation of the provided features and does not constitute financial advice."
+  },
+  {
+    "date": "2024-07-19 00:00:00",
+    "predicted_label": "Buy",
+    "sell_prob": 4.971663202013588e-06,
+    "hold_prob": 0.023447290062904358,
+    "buy_prob": 0.9765477776527405,
+    "selected_features": {
+      "pca_1": 9.348541430426584,
+      "pca_2": 3.6518586277712215,
+      "pca_3": -4.101349591114095,
+      "pca_4": -0.4491035799996939,
+      "pca_5": -3.8457339524421186
+    },
+    "prompt": "You are a financial ML explanation assistant.\n\nYour task is NOT to give investment advice.\nYour task is ONLY to explain why a machine learning model may have predicted a trading action.\n\nPrediction date: 2024-07-19 00:00:00\nPredicted action: Buy\nClass probabilities:\nSell: 0.0000, Hold: 0.0234, Buy: 0.9765\n\nRecent selected macro-financial features:\n- pca_1: 9.3485\n- pca_2: 3.6519\n- pca_3: -4.1013\n- pca_4: -0.4491\n- pca_5: -3.8457\n\nWrite a short explanation in plain English with:\n1. One sentence describing the predicted action.\n2. Two or three sentences explaining which market conditions may support it.\n3. One short caution sentence saying this is a model-based interpretation, not financial advice.\n\nKeep the tone clear, concise, and professional.\nDo not mention neural networks, logits, or internal implementation details unless necessary.",
+    "explanation": "For July 19, 2024, the model predicts a 'Buy' action with very high confidence. This strong prediction is driven by the specific configuration of recent macro-financial indicators, particularly the distinct values observed across `pca_1` through `pca_5`. This particular set of market conditions, as learned by the model, has historically been associated with upward price movements. Please remember this is a model-based interpretation and not financial advice."
+  },
+  {
+    "date": "2024-07-22 00:00:00",
+    "predicted_label": "Buy",
+    "sell_prob": 9.020696722927823e-08,
+    "hold_prob": 0.005840494763106108,
+    "buy_prob": 0.994159460067749,
+    "selected_features": {
+      "pca_1": 9.34160331468144,
+      "pca_2": 3.624487884157853,
+      "pca_3": -3.978127674783682,
+      "pca_4": 2.027762032664027,
+      "pca_5": -3.698015867182987
+    },
+    "prompt": "You are a financial ML explanation assistant.\n\nYour task is NOT to give investment advice.\nYour task is ONLY to explain why a machine learning model may have predicted a trading action.\n\nPrediction date: 2024-07-22 00:00:00\nPredicted action: Buy\nClass probabilities:\nSell: 0.0000, Hold: 0.0058, Buy: 0.9942\n\nRecent selected macro-financial features:\n- pca_1: 9.3416\n- pca_2: 3.6245\n- pca_3: -3.9781\n- pca_4: 2.0278\n- pca_5: -3.6980\n\nWrite a short explanation in plain English with:\n1. One sentence describing the predicted action.\n2. Two or three sentences explaining which market conditions may support it.\n3. One short caution sentence saying this is a model-based interpretation, not financial advice.\n\nKeep the tone clear, concise, and professional.\nDo not mention neural networks, logits, or internal implementation details unless necessary.",
+    "explanation": "The model strongly predicts a \"Buy\" action for July 22, 2024. This prediction is primarily influenced by the current configuration of recent selected macro-financial features (pca_1 to pca_5). Historically, this particular combination of aggregated economic indicators has been associated with market conditions that support a buy decision. This is a model-based interpretation and should not be considered financial advice."
+  },
+  {
+    "date": "2024-07-23 00:00:00",
+    "predicted_label": "Hold",
+    "sell_prob": 1.7015979381085344e-07,
+    "hold_prob": 0.6316666007041931,
+    "buy_prob": 0.36833325028419495,
+    "selected_features": {
+      "pca_1": 9.343569037546594,
+      "pca_2": 3.6467090051415547,
+      "pca_3": -3.946710471892033,
+      "pca_4": 0.5332252684507528,
+      "pca_5": -3.7391253333718595
+    },
+    "prompt": "You are a financial ML explanation assistant.\n\nYour task is NOT to give investment advice.\nYour task is ONLY to explain why a machine learning model may have predicted a trading action.\n\nPrediction date: 2024-07-23 00:00:00\nPredicted action: Hold\nClass probabilities:\nSell: 0.0000, Hold: 0.6317, Buy: 0.3683\n\nRecent selected macro-financial features:\n- pca_1: 9.3436\n- pca_2: 3.6467\n- pca_3: -3.9467\n- pca_4: 0.5332\n- pca_5: -3.7391\n\nWrite a short explanation in plain English with:\n1. One sentence describing the predicted action.\n2. Two or three sentences explaining which market conditions may support it.\n3. One short caution sentence saying this is a model-based interpretation, not financial advice.\n\nKeep the tone clear, concise, and professional.\nDo not mention neural networks, logits, or internal implementation details unless necessary.",
+    "explanation": "The model predicts a \"Hold\" action for July 23, 2024.\n\nThis suggests that current market conditions, as summarized by the selected macro-financial principal components, do not present a clear signal for either buying or selling. The strong \"Hold\" probability, alongside a notable \"Buy\" probability and no \"Sell\" probability, indicates a period of relative stability or consolidation rather than a strong directional trend.\n\nThis interpretation is based on the model's analysis and should not be considered financial advice."
+  }
+]

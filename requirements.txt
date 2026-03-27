@@ -1,0 +1,9 @@
+requests
+pandas
+datetime
+numpy
+scikit-learn
+matplotlib
+typing-extensions
+torch
+google-genai
